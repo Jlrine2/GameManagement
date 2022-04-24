@@ -33,3 +33,9 @@ module "Minecraft" {
   network_protocol = "tcp"
   artifact_bucket = google_storage_bucket.artifact_bucket
 }
+
+module "Info" {
+  source = "./modules/info"
+  artifact_bucket = google_storage_bucket.artifact_bucket
+  games = [module.Minecraft]
+}

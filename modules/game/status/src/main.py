@@ -1,6 +1,7 @@
 import json
 from os import environ
 from pickletools import stringnl_noescape_pair
+from urllib import response
 
 from flask import make_response, Request
 import google.cloud.compute_v1 as compute_v1
@@ -20,4 +21,8 @@ def get_server_status(request: Request):
         instance=SERVER
     )
 
-    return make_response(f"{SERVER} is {instance.status}")
+    response =  make_response(json.dumps({"status": instance.status}))
+    response.headers = {
+        'Access-Control-Allow-Origin': '*'
+    }
+    return response

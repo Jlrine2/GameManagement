@@ -27,9 +27,13 @@ def stop_server(request: Request):
     if operation.error:
         print("Error during stop:", operation.error)
         return make_response(json.dumps({
-            "error": "Error during stop"
+            "status": "error"
         }))
     if operation.warnings:
         print("Warning during stop:", operation.warnings)
 
-    return make_response("Server stopped successfully")
+    response = make_response({"name": SERVER, "status": "TERMINATED" })
+    response.headers = {
+        'Access-Control-Allow-Origin': '*'
+    }
+    return response
